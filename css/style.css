@@ -1,0 +1,251 @@
+/*-- Body Reset --*/
+body {
+  overflow-x: hidden;
+  font-family: 'Montserrat', sans-serif;
+  color: #616971;
+}
+
+/*============= NAVIGATION =============*/
+.navbar-brand img {
+  width:40px;
+}
+
+.navbar-brand {
+  color: rgb(238, 17, 139)!important;
+}
+
+.navbar {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .1rem;
+  box-shadow: 0 .5rem .5rem rgb(0, 0, 0, .1);
+}
+
+.nav-item {
+  padding: .5rem;
+}
+
+.nav-link.active, 
+.nav-link:hover {
+  color: #0de4b5!important;
+}
+
+/*============= CAROUSEL =============*/
+
+#mycarousel {
+  box-shadow: 0 1rem 1rem rgb(0, 0, 0, .1);
+}
+
+.carousel-inner {
+  max-height: 38rem!important;
+}
+
+/*---Change Carousel Transition Speed --*/
+
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+  transition: transform 1.2s ease;
+}
+
+
+/*-- Carousel Content --*/
+.carousel-caption {
+  position: absolute;
+  top: 54%;
+  transform: translateY(-50%);
+  text-transform: uppercase;
+}
+
+.bg-custom {
+  background-color: rgba(0, 0, 0, .4);
+  color: white;
+  border-radius: 1rem;
+}
+
+.carousel-caption h1 {
+  font-size: 3.8rem;
+  text-shadow: .1rem .1rem .3rem rgba(0, 0, 0, 0.5);
+}
+
+.border-primary {
+  border-top: .2rem solid #4981b3!important;
+}
+
+.carousel-caption h3 {
+  font-size: 2.2rem;
+  text-shadow: .1rem .1rem .2rem rgba(0, 0, 0, 0.5);
+}
+
+.btn-lg {
+  text-transform: uppercase;
+  font-size: 1rem;
+  border-width: medium;
+}
+
+.btn-danger {
+  background-color:#fd1187!important;
+  border: .1rem solid  #fd1187!important;
+}
+
+.btn-primary {
+  background-color:#0de4b5!important;
+  border: .1rem solid#0de4b5!important;
+}
+
+.btn-secondary {
+  background-color:#fdd211!important;
+  border: .1rem solid #fdd211!important;
+}
+
+.btn-secondary:hover, 
+.btn-secondary:focus {
+  background-color:#fd1187!important;
+  border: .1rem solid #fd1187!important;
+}
+
+.btn-primary:hover, 
+.btn-primary:focus {
+  background-color:#11edfd!important;
+  border: .1rem solid #11edfd!important;
+}
+
+.btn-danger:hover, 
+.btn-danger:focus {
+  background-color: #fdd211!important;
+  border: .1rem solid #fdd211!important;
+}
+
+.sliderline {
+  border-color: #fdd211!important;
+}
+
+/*============= Content =============*/
+.line {
+  border-color: #fd1187!important;
+}
+
+.btnmas:hover {
+  background-color: #0de4b5!important;
+}
+
+.zoom {
+  transition: transform .2s;
+}
+
+.zoom:hover {
+  transform: scale(1.1); 
+}
+/*============= FOOTER =============*/
+footer {
+  background-color: #343A40;
+  padding: 1rem 2rem 3rem;
+}
+
+footer img {
+  height: 3.5rem;
+  margin: 1.5rem auto;
+}
+
+footer p, footer a {
+  color: white;
+  text-decoration: none;
+}
+
+ul.social {
+  list-style-type: none;
+  display: flex;
+  max-width: 16rem;
+  margin: 0 auto;
+  padding: 0;
+}
+
+ul.social li {
+  margin: 0 auto;
+}
+
+footer .svg-inline--fa {
+  font-size: 2.3rem;
+}
+
+footer .svg-inline--fa:hover {
+  color: #0de4b5;
+} 
+
+/*============= LOGIN & REGISTER FORM =============*/
+.login-form {
+  margin-top: 10%;
+}
+
+.note
+{
+    background: -webkit-linear-gradient(left, #0072ff, #8811c5);
+    font-weight: bold;
+    border: none;
+}
+
+.form-content
+{
+    padding: 5%;
+    border: 1px solid #ced4da;
+    margin-bottom: 2%;
+    border-radius: 1rem;
+    box-shadow: 0 1rem 1rem rgb(0, 0, 0, .1);
+    border: .1rem solid  #0de4b5;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.btnSubmit
+{
+    border:none;
+    padding: 1%;
+    width: 100%;
+    cursor: pointer;
+    background: #0062cc;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.register-form {
+  margin-top: 10%;
+}
+
+.register-content {
+    padding: 5%;
+    border: 1px solid #ced4da;
+    margin-bottom: 2%;
+    border-radius: 1rem;
+    box-shadow: 0 1rem 1rem rgb(0, 0, 0, .1);
+    border: .1rem solid  #0de4b5;
+}
+
+.error {
+  color: red;
+}
+
+/*============= MEDIA QUERIES =============*/
+
+/* Devices under 1199px (xl) */
+@media (max-width: 1199.98px) {
+  .carousel-caption h1 {
+    font-size: 2.8rem;
+  }
+  
+  .carousel-caption h3 {
+    font-size: 1.8rem;
+  }
+}
+/* Devices under 992px (lg) */
+@media (max-width: 991.98px) {
+  .carousel-caption h1 {
+    font-size: 2.5rem;
+  }
+  
+  .carousel-caption h3 {
+    font-size: 1.5rem;
+  }
+  .btn-lg {
+    font-size: .95rem;
+  }
+}
