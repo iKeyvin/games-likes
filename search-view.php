@@ -3,7 +3,7 @@
 
 <head>
     <?php include 'includes/head.php' ?>
-    <title>Login</title>
+    <title>Buscar</title>
 </head>
 
 <body>

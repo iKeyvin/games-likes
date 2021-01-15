@@ -224,6 +224,10 @@ footer .svg-inline--fa:hover {
   color: red;
 }
 
+.success {
+  color: green;
+}
+
 /*============= MEDIA QUERIES =============*/
 
 /* Devices under 1199px (xl) */

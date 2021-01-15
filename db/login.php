@@ -12,7 +12,7 @@ if (isset($_POST['usuario']) && isset($_POST['contraseña'])) {
      }
 
     $usuario = validate($_POST['usuario']);
-    $contraseña = validate($_POST['contraseña']);
+	$contraseña = validate($_POST['contraseña']);
     
     if (empty($usuario)) {
 		header("Location: ../login-view.php?error=Usuario o contraseña incorrecto!");
@@ -21,6 +21,9 @@ if (isset($_POST['usuario']) && isset($_POST['contraseña'])) {
         header("Location: ../login-view.php?error=Usuario o contraseña incorrecto!");
 	    exit();
 	}else{
+		
+		$contraseña = md5($contraseña);
+
 		$sql = "SELECT * FROM usuarios WHERE usuario='$usuario' AND contraseña='$contraseña'";
 
 		$result = mysqli_query($conexion, $sql);

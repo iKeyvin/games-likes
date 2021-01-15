@@ -23,9 +23,6 @@ session_start();
                     <a class="nav-link" href="search-view.php">Buscar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contacto.php">Contacto</a>
-                </li>
-                <li class="nav-item">
                     <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['usuario'])) { ?>
                         <a id="btn-login" class="nav-link" href="user-view.php"><?php echo $_SESSION['usuario']; ?></a>
                 </li>

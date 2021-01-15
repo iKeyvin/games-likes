@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <div id="mycarousel" class="carousel slide" data-ride="carousel" data-interval="6500">
 
     <!-- Indicators -->
@@ -19,7 +22,11 @@
                             <div class="sliderline border-top border-primary w-50 mx-auto my-3"></div>
                             <h3 class="pb-3">Proyecto Web</h3>
                             <a href="videojuegos.php" class="btn btn-danger btn-lg mr-2">Ver Reseñas</a>
-                            <a href="login-view.php" class="btn btn-primary btn-lg ml-2">Registrarse</a>
+                            <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['usuario'])) { ?>
+                            <a href="search-view.php" class="btn btn-primary btn-lg ml-2">Buscar</a>
+                            <?php } else { ?>
+                            <a href="register-view.php" class="btn btn-primary btn-lg ml-2">Registrarse</a>
+                            <?php }?>
                         </div>
                     </div>
                 </div>
@@ -35,7 +42,11 @@
                             <div class="sliderline border-top border-primary w-50 mx-auto my-3"></div>
                             <h3 class="pb-3">Proyecto Web</h3>
                             <a href="videojuegos.php" class="btn btn-danger btn-lg mr-2">Ver Reseñas</a>
-                            <a href="login-view.php" class="btn btn-primary btn-lg ml-2">Registrarse</a>
+                            <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['usuario'])) { ?>
+                            <a href="search-view.php" class="btn btn-primary btn-lg ml-2">Buscar</a>
+                            <?php } else { ?>
+                            <a href="register-view.php" class="btn btn-primary btn-lg ml-2">Registrarse</a>
+                            <?php }?>
                         </div>
                     </div>
                 </div>
@@ -51,7 +62,11 @@
                             <div class="sliderline border-top border-primary w-50 mx-auto my-3"></div>
                             <h3 class="pb-3">Proyecto Web</h3>
                             <a href="videojuegos.php" class="btn btn-danger btn-lg mr-2">Ver Reseñas</a>
-                            <a href="login-view.php" class="btn btn-primary btn-lg ml-2">Registrarse</a>
+                            <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['usuario'])) { ?>
+                            <a href="search-view.php" class="btn btn-primary btn-lg ml-2">Buscar</a>
+                            <?php } else { ?>
+                            <a href="register-view.php" class="btn btn-primary btn-lg ml-2">Registrarse</a>
+                            <?php }?>
                         </div>
                     </div>
                 </div>
