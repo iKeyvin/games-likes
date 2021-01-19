@@ -23,7 +23,7 @@
                     <?php }?>
 
                     <?php if (isset($_GET['success'])) {?>
-                        <p class="success"><?php echo $_GET['success']; ?></p>
+                        <p class="success text-success"><?php echo $_GET['success']; ?></p>
                     <?php }?>
                     <div class="row">
                         <div class="col">

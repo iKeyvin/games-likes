@@ -228,6 +228,23 @@ footer .svg-inline--fa:hover {
   color: green;
 }
 
+/*============= Admin Page =============*/
+
+.admin-content {
+  margin-top: 150px;
+}
+
+ul.edit {
+  list-style-type: none;
+  display: flex;
+  max-width: 16rem;
+  padding: 0;
+}
+
+ul.edit li {
+  margin: 0;
+}
+
 /*============= MEDIA QUERIES =============*/
 
 /* Devices under 1199px (xl) */
