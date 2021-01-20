@@ -1,15 +1,34 @@
 <?php
 session_start();
-require 'dbconexion.php';
+require 'db/dbconexion.php';
 
 if ($_SESSION['usuario'] == 'Admin') {
 
-    $sql = "SELECT * FROM videojuegos ORDER BY id DESC";
+    $limit = isset($_POST["limit-records"]) ? $_POST["limit-records"] : 10;
+    $page = isset($_GET['page']) ? $_GET['page'] : 1;
+    $start = ($page - 1) * $limit;
+    $sql = "SELECT * FROM videojuegos ORDER BY id_videojuego DESC LIMIT $start, $limit";
     $res = mysqli_query($conexion,  $sql);
 
-    if (mysqli_num_rows($res) > 0) {
-        while ($images = mysqli_fetch_assoc($res)) { }}
+    $result1 = $conexion->query("SELECT count(id_videojuego) AS id_videojuego FROM videojuegos");
+    $custCount = $result1->fetch_all(MYSQLI_ASSOC);
+    $total = $custCount[0]['id_videojuego'];
+    $pages = ceil($total / $limit);
 
+
+
+    if ($page > 1) {
+        $Previous = $page - 1;
+        $Next = $page + 1;
+    } else if ($page == 1) {
+        $Previous = 1;
+        $Next = $page + 1;
+    }
+
+    if ($page == $pages) {
+        $Previous = $page - 1;
+        $Next = $pages;
+    }
 ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -30,9 +49,30 @@ if ($_SESSION['usuario'] == 'Admin') {
 
         <div class="container mt-5">
             <div class="row">
-                <div class="col ml-3">
+                <div class="col ml-2">
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalAddGame" id="addnewbtn">Añadir</button>
                     <?php include 'includes/modal-add-game.php' ?>
+                </div>
+                <div class="col">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <a class="page-link text-dark" href="admin-view.php?page=<?= $Previous; ?>" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <?php for ($i = 1; $i <= $pages; $i++) : ?>
+                                <li class="page-item <?php if ($page == $i) { ?>active<?php } ?>"><a class="page-link text-dark" href="admin-view.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+                            <?php endfor; ?>
+                            <li class="page-item">
+                                <a class="page-link text-dark" href="admin-view.php?page=<?= $Next; ?>" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
                 <div class="col">
                     <form class="d-flex">
@@ -48,60 +88,63 @@ if ($_SESSION['usuario'] == 'Admin') {
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th scope="col">ID</th>
                         <th scope="col">Imagen</th>
                         <th scope="col">Título</th>
                         <th scope="col">Fecha de Publicación</th>
                         <th scope="col">Descripción</th>
-                        <th scope="col">Editar / Borrar</th>
+                        <th scope="col">Editar / Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><img src="http://placehold.it/80x80" class="img-thumbnail rounded float-left"></td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>
-                            <p class="d-inline-block text-truncate" style="max-width: 150px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        </td>
-                        <td>
-                            <ul class="edit">
-                                <li><a href="" class="btn mr-3 bg-dark" target="_blank"><i class="far fa-edit text-light"></i></a></li>
-                                <li><a href="" class="btn mr-3 bg-dark" target="_blank"><i class="fas fa-trash-alt text-light"></i></a></li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="http://placehold.it/80x80" class="img-thumbnail rounded float-left"></td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>
-                            <p class="d-inline-block text-truncate" style="max-width: 150px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        </td>
-                        <td>
-                            <ul class="edit">
-                                <li><a href="" class="btn mr-3 bg-dark" target="_blank"><i class="far fa-edit text-light"></i></a></li>
-                                <li><a href="" class="btn mr-3 bg-dark" target="_blank"><i class="fas fa-trash-alt text-light"></i></a></li>
-                            </ul>
-                        </td>
-                    </tr>
+                    <?php if (mysqli_num_rows($res) > 0) {
+                        while ($videojuegos = mysqli_fetch_assoc($res)) {
+                            $id = $videojuegos['id_videojuego'] ?>
+                            <tr>
+                                <td><?= $videojuegos['id_videojuego'] ?></td>
+                                <td class="w-25"><img src="uploads/<?= $videojuegos['imagen'] ?>" class="img-thumbnail rounded float-left w-75"></td>
+                                <td><?= $videojuegos['nombre'] ?></td>
+                                <td><?= $videojuegos['fecha_pub'] ?></td>
+                                <td>
+                                    <p class="d-inline-block text-truncate" style="max-width: 150px;"><?= $videojuegos['informacion'] ?></p>
+                                </td>
+                                <td>
+                                    <ul class="edit">
+                                        <?php include 'includes/modal-delete-game.php' ?>
+                                        <?php include 'includes/modal-edit-game.php' ?>
+                                        <li><button class="btn mr-3 bg-dark" ><i class="far fa-edit text-light"></i></button></li>
+                                        <li><button type="button" class="btn mr-3 bg-dark" data-toggle="modal" data-target="#modalDeleteGame<?= $videojuegos['id_videojuego'] ?>"><i class="fas fa-trash-alt text-light"></i></a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                    <?php }
+                    } ?>
                 </tbody>
             </table>
         </div>
 
-
+        <?php include 'includes/modal-msg.php' ?>
         <!--- Start Footer -->
         <?php include 'includes/footer.php' ?>
         <!--- Script Source Files -->
         <?php include 'includes/scripts.php' ?>
         <!-- Modal -->
         <?php if (isset($_GET['modal'])) { ?>
-        <script>
-            $(document).ready(function() {
-                
+            <script>
+                $(document).ready(function() {
+
                     $("#modalAddGame").modal("show");
-            });
-        </script>
-        <?php }?>
+                });
+            </script>
+        <?php } ?>
+        <?php if (isset($_GET['msg'])) { ?>
+            <script>
+                $(document).ready(function() {
+
+                    $("#modalMsg").modal("show");
+                });
+            </script>
+        <?php } ?>
     </body>
 
     </html>

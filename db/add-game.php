@@ -23,7 +23,7 @@ if (
 
     $nombre = validate($_POST['nombre']);
     $informacion = validate($_POST['informacion']);
-    $fecha_pub = date('Y-m-d');
+    $fecha_pub = date('Y-m-d', 'h:i:s');
     $categoria = validate($_POST['categoria']);
     $modal = true;
 
@@ -57,7 +57,7 @@ if (
             exit();
         } else {
 
-            if ($img_size > 125000) {
+            if ($img_size > 150000) {
                 $em = "Sorry, your file is too large.";
                 header("Location: ../admin-view.php?error=$em&$user_data");
             }else {

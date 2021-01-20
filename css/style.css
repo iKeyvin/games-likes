@@ -245,6 +245,12 @@ ul.edit li {
   margin: 0;
 }
 
+.pagination .active a {
+  background-color: #0de4b5!important;
+  color: #ffffff!important;
+  border: .05rem solid  #0de4b5!important;
+}
+
 /*============= MEDIA QUERIES =============*/
 
 /* Devices under 1199px (xl) */
