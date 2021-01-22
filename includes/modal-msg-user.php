@@ -14,7 +14,7 @@
                     <?php } ?>
       </div>
       <div class="modal-footer">
-        <a href="./admin-view.php" class="btn btn-secondary">Cerrar</a>
+        <a href="./user-view.php" class="btn btn-secondary">Cerrar</a>
       </div>
     </div>
   </div>

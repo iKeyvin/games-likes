@@ -14,13 +14,10 @@ session_start();
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.php">Inicio</a>
+                    <a class="nav-link" href="index.php">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="videojuegos.php">Videojuegos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="search-view.php">Buscar</a>
                 </li>
                 <li class="nav-item">
                     <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['usuario'])) { ?>
@@ -33,7 +30,12 @@ session_start();
                 <a id="btn-login" class="nav-link" href="login-view.php">Login</a>
             <?php } ?>
             </li>
+            <form class="form-inline my-2 my-lg-0" action="./videojuegos.php" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Buscar Videojuego" aria-label="Buscar" name="nombre">
+                <button class="btn btn-primary my-2 my-sm-0" name="buscar" type="submit">Buscar</button>
+            </form>
             </ul>
         </div>
     </div>
 </nav>
+

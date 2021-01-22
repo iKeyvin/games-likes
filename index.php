@@ -1,3 +1,20 @@
+<?php
+session_start();
+require 'db/dbconexion.php';
+
+$limit = isset($_POST["limit-records"]) ? $_POST["limit-records"] : 6;
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$start = ($page - 1) * $limit;
+$sql = "SELECT * FROM videojuegos ORDER BY id_videojuego DESC LIMIT $start, $limit";
+$res = mysqli_query($conexion,  $sql);
+
+$result1 = $conexion->query("SELECT count(id_videojuego) AS id_videojuego FROM videojuegos");
+$custCount = $result1->fetch_all(MYSQLI_ASSOC);
+$total = $custCount[0]['id_videojuego'];
+$pages = ceil($total / $limit);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +28,7 @@
 	<?php include 'includes/navbar.php' ?>
 	<!--- Image Slider -->
 	<?php include 'includes/slider.php' ?>
-	
+
 	<!--- Main Page Heading -->
 	<div class="col-12 text-center mt-5">
 		<h2 class="text-dark pt-4">Novedades</h2>
@@ -21,53 +38,23 @@
 	<!--- Three Column Section -->
 	<div class="container">
 		<div class="row my-5">
-			<div class="col-md-4 my-4">
-				<img src="img/cyberpunk.jpg" alt="" class="zoom w-100">
-				<h4 class="my-4">Titulo Juego</h4>
-				<h6>Fecha</h6>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-				<a href="#" class="btnmas btn btn-outline-dark btn-md">Leer más</a>
-			</div>
+			<?php if (mysqli_num_rows($res) > 0) {
+				while ($videojuegos = mysqli_fetch_assoc($res)) {
+					$id = $videojuegos['id_videojuego'] ?>
+					<div id="module" class="col-md-4 my-4">
+						<img src="uploads/<?= $videojuegos['imagen'] ?>" alt="" class="zoom w-100">
+						<h4 class="my-4"><?= $videojuegos['nombre'] ?></h4>
+						<h6>Fecha: <?= $videojuegos['fecha_pub'] ?></h6>
+						<p class="collapse" id="collapseExample" aria-expanded="false"><?= $videojuegos['informacion'] ?></p>
 
-			<div class="col-md-4 my-4">
-				<img src="img/fallguys.jpg" alt="" class="zoom w-100">
-				<h4 class="my-4">Titulo Juego</h4>
-				<h6>Fecha</h6>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-				<a href="#" class="btnmas btn btn-outline-dark btn-md">Leer más</a>
-			</div>
+						<form action="videojuegos.php" method="post">
+                                <input type="hidden" name="id_videojuego" value="<?= $videojuegos['id_videojuego'] ?>">
+                                <button type="submit" name="fullVideojuego" class="btnmas btn btn-outline-dark btn-md">Leer más</button>
+                            </form>
+					</div>
 
-			<div class="col-md-4 my-4">
-				<img src="img/portadahades.jpg" alt="" class="zoom w-100">
-				<h4 class="my-4">Titulo Juego</h4>
-				<h6>Fecha</h6>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-				<a href="#" class="btnmas btn btn-outline-dark btn-md">Leer más</a>
-			</div>
-
-			<div class="col-md-4 my-4">
-				<img src="img/got.jpg" alt="" class="zoom w-100">
-				<h4 class="my-4">Titulo Juego</h4>
-				<h6>Fecha</h6>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-				<a href="#" class="btnmas btn btn-outline-dark btn-md">Leer más</a>
-			</div>
-
-			<div class="col-md-4 my-4">
-				<img src="img/residentevil.jpg" alt="" class="zoom w-100">
-				<h4 class="my-4">Titulo Juego</h4>
-				<h6>Fecha</h6>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-				<a href="#" class="btnmas btn btn-outline-dark btn-md">Leer más</a>
-			</div>
-
-			<div class="col-md-4 my-4">
-				<img src="img/myhero.jpg" alt="" class="zoom w-100">
-				<h4 class="my-4">Titulo Juego</h4>
-				<h6>Fecha</h6>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-				<a href="#" class="btnmas btn btn-outline-dark btn-md">Leer más</a>
-			</div>
+			<?php }
+			} ?>
 
 		</div>
 	</div>

@@ -23,7 +23,7 @@ if (
 
     $nombre = validate($_POST['nombre']);
     $informacion = validate($_POST['informacion']);
-    $fecha_pub = date('Y-m-d', 'h:i:s');
+    $fecha_pub = date('Y-m-d h:i:s');
     $categoria = validate($_POST['categoria']);
     $modal = true;
 
@@ -45,7 +45,7 @@ if (
         header("Location: ../admin-view.php?error=¡Seleccione una categoría!&$user_data");
         exit();
     } else if (empty($img_name)) {
-        header("Location: ../admin-view.php?error=¡Seleccione una categoría!&$user_data");
+        header("Location: ../admin-view.php?error=Seleccionar imagen.&$user_data");
         exit();
     } else {
 
@@ -57,7 +57,7 @@ if (
             exit();
         } else {
 
-            if ($img_size > 150000) {
+            if ($img_size > 550000) {
                 $em = "Sorry, your file is too large.";
                 header("Location: ../admin-view.php?error=$em&$user_data");
             }else {
@@ -75,8 +75,7 @@ if (
                     $result2 = mysqli_query($conexion, $sql2);
 
                     if ($result2) {
-
-                        header("Location: ../admin-view.php?success=¡Enhorabuena! Se ha añadido un nuevo videojuego.&modal=$modal");
+                        header("Location: ../admin-view.php?&msg=true&mensaje=¡Enhorabuena! Se ha añadido un nuevo videojuego.");
                         exit();
                     } else {
                         header("Location: ../admin-view.php?error=Vaya, parece que se ha producido un error. Inténtalo de nuevo.&$user_data");

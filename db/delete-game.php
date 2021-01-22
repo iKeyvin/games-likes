@@ -14,7 +14,7 @@ if (isset($_POST['deleteGame'])){
     $result = mysqli_query($conexion, $sql);
 
     if($result){
-        header("Location: ../admin-view.php?msg=true");
+        header("Location: ../admin-view.php?msg=true&mensaje=¡Enhorabuena! Se ha eliminado correctamente.");
         exit();
     } else {
         header("Location: ../admin-view.php?error=$id_videojuego");

@@ -4,16 +4,25 @@ require 'db/dbconexion.php';
 
 if ($_SESSION['usuario'] == 'Admin') {
 
-    $limit = isset($_POST["limit-records"]) ? $_POST["limit-records"] : 10;
+    $limit = isset($_POST["limit-records"]) ? $_POST["limit-records"] : 6;
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
     $start = ($page - 1) * $limit;
-    $sql = "SELECT * FROM videojuegos ORDER BY id_videojuego DESC LIMIT $start, $limit";
-    $res = mysqli_query($conexion,  $sql);
 
-    $result1 = $conexion->query("SELECT count(id_videojuego) AS id_videojuego FROM videojuegos");
-    $custCount = $result1->fetch_all(MYSQLI_ASSOC);
-    $total = $custCount[0]['id_videojuego'];
-    $pages = ceil($total / $limit);
+    if (isset($_POST['buscar'])) {
+
+        $nombre = $_POST['nombre'];
+
+        $sql = "SELECT * FROM videojuegos WHERE nombre LIKE '%$nombre%' ORDER BY id_videojuego DESC LIMIT $start, $limit";
+        $res = mysqli_query($conexion,  $sql);
+    } else {
+        $sql = "SELECT * FROM videojuegos ORDER BY id_videojuego DESC LIMIT $start, $limit";
+        $res = mysqli_query($conexion,  $sql);
+
+        $result1 = $conexion->query("SELECT count(id_videojuego) AS id_videojuego FROM videojuegos");
+        $custCount = $result1->fetch_all(MYSQLI_ASSOC);
+        $total = $custCount[0]['id_videojuego'];
+        $pages = ceil($total / $limit);
+    }
 
 
 
@@ -52,48 +61,51 @@ if ($_SESSION['usuario'] == 'Admin') {
                 <div class="col ml-2">
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalAddGame" id="addnewbtn">Añadir</button>
                     <?php include 'includes/modal-add-game.php' ?>
+                    <?php include 'includes/modal-update-game.php' ?>
                 </div>
+                <?php if (isset($_POST['buscar']) != true) { ?>
+                    <div class="col">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link text-dark" href="admin-view.php?page=<?= $Previous; ?>" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <?php for ($i = 1; $i <= $pages; $i++) : ?>
+                                    <li class="page-item <?php if ($page == $i) { ?>active<?php } ?>"><a class="page-link text-dark" href="admin-view.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+                                <?php endfor; ?>
+                                <li class="page-item">
+                                    <a class="page-link text-dark" href="admin-view.php?page=<?= $Next; ?>" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                <?php } ?>
                 <div class="col">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item">
-                                <a class="page-link text-dark" href="admin-view.php?page=<?= $Previous; ?>" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            <?php for ($i = 1; $i <= $pages; $i++) : ?>
-                                <li class="page-item <?php if ($page == $i) { ?>active<?php } ?>"><a class="page-link text-dark" href="admin-view.php?page=<?= $i; ?>"><?= $i; ?></a></li>
-                            <?php endfor; ?>
-                            <li class="page-item">
-                                <a class="page-link text-dark" href="admin-view.php?page=<?= $Next; ?>" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-primary ml-1" type="submit">Search</button>
+                    <form action="admin-view.php" method="post" class="d-flex">
+                        <input class="form-control me-2" name="nombre" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-primary ml-1" name="buscar" type="submit">Search</button>
                     </form>
                 </div>
             </div>
 
         </div>
 
-        <div class="container pt-4">
+        <div class="container pt-4 mb-5">
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Imagen</th>
                         <th scope="col">Título</th>
-                        <th scope="col">Fecha de Publicación</th>
+                        <th scope="col" class="w-25">Fecha de Publicación</th>
                         <th scope="col">Descripción</th>
-                        <th scope="col">Editar / Eliminar</th>
+                        <th scope="col">Editar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,17 +114,17 @@ if ($_SESSION['usuario'] == 'Admin') {
                             $id = $videojuegos['id_videojuego'] ?>
                             <tr>
                                 <td><?= $videojuegos['id_videojuego'] ?></td>
-                                <td class="w-25"><img src="uploads/<?= $videojuegos['imagen'] ?>" class="img-thumbnail rounded float-left w-75"></td>
+                                <td class="w-25"><img src="uploads/<?= $videojuegos['imagen'] ?>" class="img-thumbnail rounded float-left w-auto"></td>
                                 <td><?= $videojuegos['nombre'] ?></td>
-                                <td><?= $videojuegos['fecha_pub'] ?></td>
-                                <td>
-                                    <p class="d-inline-block text-truncate" style="max-width: 150px;"><?= $videojuegos['informacion'] ?></p>
+                                <td class=""><?= $videojuegos['fecha_pub'] ?></td>
+                                <td id="moduleAdmin">
+                                    <p class="collapse w-auto" id="collapseExample" aria-expanded="false"><?= $videojuegos['informacion'] ?></p>...
                                 </td>
                                 <td>
                                     <ul class="edit">
                                         <?php include 'includes/modal-delete-game.php' ?>
-                                        <?php include 'includes/modal-edit-game.php' ?>
-                                        <li><button class="btn mr-3 bg-dark" ><i class="far fa-edit text-light"></i></button></li>
+                                        <?php include 'includes/modal-update-game.php' ?>
+                                        <li><button class="btn mr-3 bg-dark"><i class="far fa-edit text-light" data-toggle="modal" data-target="#modalUpdateGame<?= $videojuegos['id_videojuego'] ?>"></i></button></li>
                                         <li><button type="button" class="btn mr-3 bg-dark" data-toggle="modal" data-target="#modalDeleteGame<?= $videojuegos['id_videojuego'] ?>"><i class="fas fa-trash-alt text-light"></i></a></li>
                                     </ul>
                                 </td>
@@ -122,7 +134,29 @@ if ($_SESSION['usuario'] == 'Admin') {
                 </tbody>
             </table>
         </div>
-
+        <?php if (isset($_POST['buscar']) != true) { ?>
+        <div class="col">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link text-dark" href="admin-view.php?page=<?= $Previous; ?>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <?php for ($i = 1; $i <= $pages; $i++) : ?>
+                        <li class="page-item <?php if ($page == $i) { ?>active<?php } ?>"><a class="page-link text-dark" href="admin-view.php?page=<?= $i; ?>"><?= $i; ?></a></li>
+                    <?php endfor; ?>
+                    <li class="page-item">
+                        <a class="page-link text-dark" href="admin-view.php?page=<?= $Next; ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <?php } ?>
         <?php include 'includes/modal-msg.php' ?>
         <!--- Start Footer -->
         <?php include 'includes/footer.php' ?>
@@ -134,6 +168,14 @@ if ($_SESSION['usuario'] == 'Admin') {
                 $(document).ready(function() {
 
                     $("#modalAddGame").modal("show");
+                });
+            </script>
+        <?php } ?>
+        <?php if (isset($_GET['modalUpdate'])) { ?>
+            <script>
+                $(document).ready(function() {
+
+                    $("#modalUpdateGame").modal("show");
                 });
             </script>
         <?php } ?>

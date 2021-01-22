@@ -251,6 +251,71 @@ ul.edit li {
   border: .05rem solid  #0de4b5!important;
 }
 
+/*============= Search Page =============*/
+
+.btnlikedown {
+  width: 20%;
+  border-radius: 1rem;
+  background-color: #fd1187!important;
+  border: .05rem solid  #fd1187!important;
+}
+
+.btnlikeup {
+  width: 20%;
+  border-radius: 1rem;
+}
+
+/*============= Search Page =============*/
+
+.search {
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+/*============= Text collapse =============*/
+#module {
+  width: 500px;
+}
+
+#module p.collapse[aria-expanded="false"] {
+    display: block;
+    height: 100px !important;
+    overflow: hidden;
+}
+
+#module p.collapsing[aria-expanded="false"] {
+    height: 100px !important;
+}
+
+#moduleAdmin {
+  width: 300px;
+}
+
+#moduleAdmin p.collapse[aria-expanded="false"] {
+    display: block;
+    height: 100px !important;
+    overflow: hidden;
+}
+
+#moduleAdmin p.collapsing[aria-expanded="false"] {
+    height: 100px !important;
+}
+
+
+#moduleGames {
+  width: auto;
+}
+
+#moduleGames p.collapse[aria-expanded="false"] {
+    display: block;
+    height: 115px !important;
+    overflow: hidden;
+}
+
+#moduleGames p.collapsing[aria-expanded="false"] {
+    height: 115px !important;
+}
+
 /*============= MEDIA QUERIES =============*/
 
 /* Devices under 1199px (xl) */
