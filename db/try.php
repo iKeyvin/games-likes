@@ -2,96 +2,45 @@
 session_start();
 require 'dbconexion.php';
 
-if (
-    isset($_POST['cancelFree'])
-) {
-    header("Location: ../admin-view.php");
+if (isset($_POST['up'])) {
+
+    header("Location: ../videojuegos.php?error0=Vaya, parece que se ha producido un error. Inténtalo de nuevo.");
     exit();
-}
 
-if (
-    isset($_POST['updateGame'])
-) {
-
-    function validate($data)
-    {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
-
-    $nombre = validate($_POST['nombre']);
-    $informacion = validate($_POST['informacion']);
-    $fecha_pub = date('Y-m-d h:i:s');
-    $categoria = validate($_POST['categoria']);
-    $modal = true;
+    $voto = $_POST['votoup'];
     $id_videojuego = $_POST['id_videojuego'];
+    $id_usuario = $_POST['id_usuario'];
 
-    $img_name = $_FILES['imagen']['name'];
-    $img_size = $_FILES['imagen']['size'];
-    $tmp_name = $_FILES['imagen']['tmp_name'];
-    $error = $_FILES['imagen']['error'];
+    $sql = "SELECT * FROM votos WHERE id_videojuego = $id_videojuego AND id_usuario = $id_usuario AND thumbs_up > 0 ";
+    $result = mysqli_query($conexion, $sql);
 
-    $user_data = 'nombre=' . $nombre . '&informacion=' . $informacion . '&categoria=' . $categoria . '&modal=' . true;
+    $sql2 = "SELECT * FROM votos WHERE id_videojuego = $id_videojuego AND id_usuario = $id_usuario AND thumbs_up = 0 ";
+    $result2 = mysqli_query($conexion, $sql);
 
+    
 
-    if (empty($nombre)) {
-        header("Location: ../admin-view.php?error=¡Introduce un título!&$user_data");
+    if($result == false){
+
+        $sql3 = "INSERT INTO votos (id_videojuego, id_usuario, thumbs_up) VALUES ('$id_videojuego','$id_usuario', 1)";
+        $result3 = mysqli_query($conexion, $sql2);
+
+        header("Location: ../videojuegos.php?error1=Vaya, parece que se ha producido un error. Inténtalo de nuevo.");
         exit();
-    } else if (empty($informacion)) {
-        header("Location: ../admin-view.php?error=¡Introduzca la descripción!&$user_data");
-        exit();
-    } else if (empty($categoria)) {
-        header("Location: ../admin-view.php?error=¡Seleccione una categoría!&$user_data");
+
+    } else if($result2){
+        $sql3 = "UPDATE votos SET thumbs_up=1 WHERE id_videojuego=$id_videojuego AND id_usuario=$id_usuario";
+        $result3 = mysqli_query($conexion, $sql2);
+        header("Location: ../videojuegos.php?error1=Vaya, parece que se ha producido un error. Inténtalo de nuevo.");
         exit();
     } else {
-        if ($img_size > 150000) {
-            $em = "Sorry, your file is too large.";
-            header("Location: ../admin-view.php?error=$em&$user_data");
-        } else {
-
-            if (empty($img_name)) {
-                $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-                $img_ex_lc = strtolower($img_ex);
-
-                $allowed_exs = array("jpg", "jpeg", "png");
-
-                if (in_array($img_ex_lc, $allowed_exs)) {
-                    $new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
-                    $img_upload_path = '../uploads/' . $new_img_name;
-                    move_uploaded_file($tmp_name, $img_upload_path);
-
-                    $sql2 = "UPDATE videojuegos SET nombre='$nombre', informacion='$informacion', id_categoria='$categoria', imagen='$new_img_name' WHERE id_videojuego='";
-                }
-
-                $result2 = mysqli_query($conexion, $sql2);
-
-                if ($result2) {
-
-                    header("Location: ../admin-view.php?success=¡Enhorabuena! Se ha añadido un nuevo videojuego.&modal=$modal");
-                    exit();
-                } else {
-                    header("Location: ../admin-view.php?error=Vaya, parece que se ha producido un error. Inténtalo de nuevo.&$user_data");
-                    exit();
-                }
-            } else {
-
-                $sql2 = "UPDATE videojuegos SET nombre='$nombre', informacion='$informacion', id_categoria='$categoria' WHERE id_videojuego=$id_videojuego";
-                $result2 = mysqli_query($conexion, $sql2);
-
-                if ($result2) {
-
-                    header("Location: ../admin-view.php?success=¡Enhorabuena! Se ha añadido un nuevo videojuego.&modal=$modal");
-                    exit();
-                } else {
-                    header("Location: ../admin-view.php?error=Vaya, parece que se ha producido un error. Inténtalo de nuevo.&$user_data");
-                    exit();
-                }
-            }
-        }
+        $sql3 = "UPDATE votos SET thumbs_up=0 WHERE id_videojuego=$id_videojuego AND id_usuario=$id_usuario";
+        $result3 = mysqli_query($conexion, $sql2);
+        header("Location: ../videojuegos.php?error3=Vaya, parece que se ha producido un error. Inténtalo de nuevo.");
+        exit();
     }
-} else {
-    header("Location: ../admin-view.php");
-    exit();
+
+} else if (isset($_POST['down'])) {
+
+    $voto = $_POST['votodown'];
+
 }

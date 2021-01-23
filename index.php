@@ -42,17 +42,16 @@ $pages = ceil($total / $limit);
 				while ($videojuegos = mysqli_fetch_assoc($res)) {
 					$id = $videojuegos['id_videojuego'] ?>
 					<div id="module" class="col-md-4 my-4">
-						<img src="uploads/<?= $videojuegos['imagen'] ?>" alt="" class="zoom w-100">
-						<h4 class="my-4"><?= $videojuegos['nombre'] ?></h4>
-						<h6>Fecha: <?= $videojuegos['fecha_pub'] ?></h6>
-						<p class="collapse" id="collapseExample" aria-expanded="false"><?= $videojuegos['informacion'] ?></p>
-
 						<form action="videojuegos.php" method="post">
-                                <input type="hidden" name="id_videojuego" value="<?= $videojuegos['id_videojuego'] ?>">
-                                <button type="submit" name="fullVideojuego" class="btnmas btn btn-outline-dark btn-md">Leer más</button>
-                            </form>
-					</div>
+						<input type="hidden" name="id_videojuego" value="<?= $videojuegos['id_videojuego'] ?>">
+						<button type="submit" name="fullVideojuego" class="border-0 m-0 bg-white"><img src="uploads/<?= $videojuegos['imagen'] ?> " class="zoom w-100" /></button>
+							<h4 class="my-4"><?= $videojuegos['nombre'] ?></h4>
+							<h6>Fecha: <?= $videojuegos['fecha_pub'] ?></h6>
+							<p class="collapse" id="collapseExample" aria-expanded="false"><?= $videojuegos['informacion'] ?></p>
 
+							<button type="submit" name="fullVideojuego" class="btnmas btn btn-outline-dark btn-md">Leer más</button>
+						</form>
+					</div>
 			<?php }
 			} ?>
 

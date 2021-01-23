@@ -19,3 +19,43 @@
         }
     }
 </script>
+
+<script type="text/javascript">
+        $('#like').click(function() {
+            var usuario = document.getElementById("usuarioAjax").value;
+            var videojuego = document.getElementById("videojuegoAjax").value;
+
+            $.ajax({
+                type: 'post',
+                url: './db/votes.php',
+                data: {
+                    id_usuario: usuario,
+                    id_videojuego: videojuego,
+                    action: 'up'
+                },
+                success: function(response) {
+                    $('.display_up').html(response[1]);
+                    $('.display_down').html(response[3]);
+                }
+            });
+        });
+
+    $('#dislike').click(function() {
+        var usuario = document.getElementById("usuarioAjax").value;
+        var videojuego = document.getElementById("videojuegoAjax").value;
+        $.ajax({
+            type: 'post',
+            url: './db/votes.php',
+            data: {
+                id_usuario: usuario,
+                id_videojuego: videojuego,
+                action: 'down'
+            },
+            success: function(response) {
+                $('.display_up').html(response[1]);
+                $('.display_down').html(response[3]);
+            }
+        });
+    });
+
+</script>

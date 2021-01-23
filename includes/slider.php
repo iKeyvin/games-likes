@@ -21,7 +21,7 @@ session_start();
                             <h1>Games & Likes</h1>
                             <div class="sliderline border-top border-primary w-50 mx-auto my-3"></div>
                             <h3 class="pb-3">Proyecto Web</h3>
-                            <a href="videojuegos.php" class="btn btn-danger btn-lg mr-2">Ver Reseñas</a>
+                            <a href="videojuegos.php" class="btn btn-danger btn-lg mr-2">Videojuegos</a>
                             <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['usuario'])) { ?>
                             <a href="search-view.php" class="btn btn-primary btn-lg ml-2">Buscar</a>
                             <?php } else { ?>
@@ -41,7 +41,7 @@ session_start();
                             <h1>Games & Likes</h1>
                             <div class="sliderline border-top border-primary w-50 mx-auto my-3"></div>
                             <h3 class="pb-3">Proyecto Web</h3>
-                            <a href="videojuegos.php" class="btn btn-danger btn-lg mr-2">Ver Reseñas</a>
+                            <a href="videojuegos.php" class="btn btn-danger btn-lg mr-2">Videojuegos</a>
                             <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['usuario'])) { ?>
                             <a href="search-view.php" class="btn btn-primary btn-lg ml-2">Buscar</a>
                             <?php } else { ?>
@@ -61,7 +61,7 @@ session_start();
                             <h1>Games & Likes</h1>
                             <div class="sliderline border-top border-primary w-50 mx-auto my-3"></div>
                             <h3 class="pb-3">Proyecto Web</h3>
-                            <a href="videojuegos.php" class="btn btn-danger btn-lg mr-2">Ver Reseñas</a>
+                            <a href="videojuegos.php" class="btn btn-danger btn-lg mr-2">Videojuegos</a>
                             <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['usuario'])) { ?>
                             <a href="search-view.php" class="btn btn-primary btn-lg ml-2">Buscar</a>
                             <?php } else { ?>
