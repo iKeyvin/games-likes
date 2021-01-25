@@ -37,7 +37,10 @@ if (
     } else if (empty($apellidos)) {
         header("Location: ../register-view.php?error=¡Introduce los apellidos!&$user_data");
         exit();
-    } else if (empty($email)) {
+    } else if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        header("Location: ../register-view.php?error=¡Introduce un correo eletrónico valido!&$user_data");
+        exit();
+    }else if (empty($email)) {
         header("Location: ../register-view.php?error=¡Introduce un correo eletrónico!&$user_data");
         exit();
     }else if (empty($telefono)) {
@@ -70,7 +73,7 @@ if (
             exit();
         } else {
 
-            $sql2 = "INSERT INTO usuarios (usuario, nombre, apellidos, fecha_nacimiento, telefono, email, contraseña, imagen) VALUES ('$usuario','$nombre','$apellidos','$fecha_nacimiento','$telefono','$email', '$contraseña','IMG-600ec020b084a6.08700229.jpg')";
+            $sql2 = "INSERT INTO usuarios (usuario, nombre, apellidos, fecha_nacimiento, telefono, email, contraseña) VALUES ('$usuario','$nombre','$apellidos','$fecha_nacimiento','$telefono','$email', '$contraseña')";
             $result2 = mysqli_query($conexion, $sql2);
 
             if ($result2) {
