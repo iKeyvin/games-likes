@@ -43,7 +43,10 @@ if (
     }else if (empty($telefono)) {
         header("Location: ../register-view.php?error=¡Introduce un número de teléfono!&$user_data");
         exit();
-    } else if (empty($fecha_nacimiento)) {
+    } else if ($fecha_nacimiento >= date('Y-m-d')) {
+        header("Location: ../register-view.php?error=¡Fecha de nacimiento incorrecta!&$user_data");
+        exit();
+    }else if (empty($fecha_nacimiento)) {
         header("Location: ../register-view.php?error=¡Introduce la fecha de nacimiento!&$user_data");
         exit();
     } else if (empty($contraseña)) {
@@ -67,7 +70,7 @@ if (
             exit();
         } else {
 
-            $sql2 = "INSERT INTO usuarios (usuario, nombre, apellidos, fecha_nacimiento, telefono, email, contraseña) VALUES ('$usuario','$nombre','$apellidos','$fecha_nacimiento','$telefono','$email', '$contraseña')";
+            $sql2 = "INSERT INTO usuarios (usuario, nombre, apellidos, fecha_nacimiento, telefono, email, contraseña, imagen) VALUES ('$usuario','$nombre','$apellidos','$fecha_nacimiento','$telefono','$email', '$contraseña','IMG-600ec020b084a6.08700229.jpg')";
             $result2 = mysqli_query($conexion, $sql2);
 
             if ($result2) {

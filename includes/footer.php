@@ -3,7 +3,7 @@
         <div class="row text-light text-center py-4 justify-content-center">
 
             <div class="col-sm-10 col-md-8 col-lg-6">
-                <h4>CONTACTO | ACERCA DE</h4>
+                <h4><a id="acercade" href="acercade.php">CONTACTO | ACERCA DE</a></h4>
                 <p>gamesandlikes@gmail.com</p>
                 <ul class="social pt-3">
                 <li><a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a></li>

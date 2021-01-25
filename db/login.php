@@ -33,7 +33,8 @@ if (isset($_POST['usuario']) && isset($_POST['contraseña'])) {
             if ($row['usuario'] === $usuario && $row['contraseña'] === $contraseña) {
             	$_SESSION['usuario'] = $row['usuario'];
             	$_SESSION['nombre'] = $row['nombre'];
-            	$_SESSION['id_usuario'] = $row['id_usuario'];
+				$_SESSION['id_usuario'] = $row['id_usuario'];
+				$_SESSION['imagen'] = $row['imagen'];
             	header("Location: ../index.php");
 		        exit();
             }else{

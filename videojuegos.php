@@ -2,6 +2,8 @@
 session_start();
 require 'db/dbconexion.php';
 
+$usuario = $_SESSION['usuario'];
+
 $limit = isset($_POST["limit-records"]) ? $_POST["limit-records"] : 6;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $start = ($page - 1) * $limit;
@@ -162,12 +164,13 @@ if ($page == $pages) {
                             <input type="hidden" id="videojuegoAjax" name="id_videojuego" value="<?= $videojuegos['id_videojuego'] ?>">
                             <input type="hidden" id="usuarioAjax" name="id_usuario" value="<?= $_SESSION['id_usuario'] ?>">
                             <button id="like" class="btnlikeup btn-block btn-primary pt-2 mt-5 mr-2">
-                                <h3><i class="fas fa-thumbs-up"></i> <p class="display_up d-inline"><?= $votosUp ?></p>
+                                <h3><i class="fas fa-thumbs-up"></i>
+                                    <p class="display_up d-inline"><?= $votosUp ?></p>
                                 </h3>
                             </button>
                             <button id="dislike" name="down" class="btnlikedown btn-block btn-primary pt-2 mt-5 ml-2º">
                                 <h3><i class="fas fa-thumbs-down"></i>
-                                <p class="display_down d-inline"><?= $votosDown ?></p>
+                                    <p class="display_down d-inline"><?= $votosDown ?></p>
                                 </h3>
                             </button>
                         </div>
@@ -187,26 +190,56 @@ if ($page == $pages) {
                     <div class="container ml-1">
                         <div class="row">
                             <h2>Comentarios</h2>
-                            <button type="button" class="btn btn-secondary ml-4" data-toggle="modal" data-target="#modalAddGame" id="addnewbtn">Añadir</button>
-                        </div>
-
-                    </div>
-                    <div class="container mt-5">
-                        <div class="row">
-                            <div class="col-2 text-center"><img src="img/cyber.jpg" class="img-thumbnail rounded float-left w-auto mb-2">
-                                <p>Usuario</p>
-                            </div>
-                            <div class="col-10 bg-dark text-light border border-dark rounded">Comentario</div>
                         </div>
                     </div>
                 </div>
-
-
+                <?php
+                $sqlComentario = "SELECT * FROM comentarios WHERE id_videojuego = $id_videojuego ORDER BY fecha_pub ASC";
+                $resComentario = mysqli_query($conexion,  $sqlComentario);
+                if (mysqli_num_rows($resComentario) > 0) {
+                    while ($comentarios = mysqli_fetch_assoc($resComentario)) { ?>
+                        <div class="container mt-5" id="comentarios<?= $comentarios['id_comentario'] ?>">
+                            <div class="row">
+                                <div class="col-2 text-center"><img src="uploads/<?= $comentarios['imagen'] ?>" class="img-thumbnail rounded float-left w-auto mb-2">
+                                    <p>Usuario: <?= $comentarios['usuario'] ?></p>
+                                </div>
+                                <div class="col-10 bg-dark text-light border border-dark rounded">
+                                    <p class="text-muted">Fecha: <?= $comentarios['fecha_pub'] ?></p>
+                                    <p><?= $comentarios['comentario'] ?></p>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row-reverse mt-2">
+                                <input type="hidden" id="idComentario" value="<?= $comentarios['id_comentario'] ?>">
+                                <?php if ($_SESSION['usuario'] == $comentarios['usuario']) { ?>
+                                    <button type="button" class="btn btn-danger" id="deleteComment<?= $comentarios['id_comentario'] ?>">Eliminar</button>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        </div>
+                <?php }
+                } ?>
+                <div class="container mt-5" id="comentariosAppend"></div>
+                <?php if (isset($_SESSION['usuario'])) { ?>
+                    <div class="container mt-5">
+                        <div class="row">
+                            <input type="hidden" id="imagenAjax" value="<?= $_SESSION['imagen'] ?>">
+                            <input type="hidden" id="usuarioComAjax" value="<?= $_SESSION['usuario'] ?>">
+                            <input type="hidden" id="videojuegoComAjax" value="<?= $videojuegos['id_videojuego'] ?>">
+                            <div class="col-2 text-center"><img src="uploads/<?= $_SESSION['imagen'] ?>" class="img-thumbnail rounded float-left w-auto mb-2">
+                                <p class="display_usuario"><?= $_SESSION['usuario']  ?></p>
+                            </div>
+                            <textarea id="comentarioAjax" class="col-10 bg-warning text-dark border border-warning rounded" style="height:150px;" placeholder="Escribe un comentario..."></textarea>
+                        </div>
+                        <div class="d-flex flex-row-reverse"><button type="button" class="btn btn-primary" id="addComment">Comentar</button></div>
+                    </div>
+                <?php } ?>
 
         <?php }
         } ?>
     <?php } ?>
     <div class="container mt-5"></div>
+
+    <?php include 'includes/modal-msg.php' ?>
     <!--- Start Footer -->
     <?php include 'includes/footer.php' ?>
     <!--- Script Source Files -->

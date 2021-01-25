@@ -9,12 +9,20 @@
         </button>
       </div>
       <div class="modal-body text-success d-flex justify-content-center">
-      <?php if (isset($_GET['mensaje'])) { ?>
-                        <p class="mensaje"><?php echo $_GET['mensaje']; ?></p>
-                    <?php } ?>
+        <?php if (isset($_GET['mensaje'])) { ?>
+          <p class="mensaje"><?php echo $_GET['mensaje']; ?></p>
       </div>
       <div class="modal-footer">
         <a href="./admin-view.php" class="btn btn-secondary">Cerrar</a>
+
+      <?php } else { ?>
+
+        <p class="text-danger">¡Tienes que registrarte!</p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      <?php } ?>
       </div>
     </div>
   </div>

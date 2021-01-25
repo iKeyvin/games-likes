@@ -58,7 +58,7 @@ if (
         } else {
 
             if ($img_size > 550000) {
-                $em = "Sorry, your file is too large.";
+                $em = "Lo siento, el archivo es demasiado grande.";
                 header("Location: ../admin-view.php?error=$em&$user_data");
             }else {
                 $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);

@@ -23,17 +23,17 @@ session_start();
                             <h3 class="pb-3">Proyecto Web</h3>
                             <a href="videojuegos.php" class="btn btn-danger btn-lg mr-2">Videojuegos</a>
                             <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['usuario'])) { ?>
-                            <a href="search-view.php" class="btn btn-primary btn-lg ml-2">Buscar</a>
+                                <a href="user-view.php" class="btn btn-primary btn-lg ml-2">Mi Perfil</a>
                             <?php } else { ?>
-                            <a href="register-view.php" class="btn btn-primary btn-lg ml-2">Registrarse</a>
-                            <?php }?>
+                                <a href="register-view.php" class="btn btn-primary btn-lg ml-2">Registrarse</a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="carousel-item">
-        <img src="img/img2.png" alt="" class="w-100">
+            <img src="img/img2.png" alt="" class="w-100">
             <div class="carousel-caption">
                 <div class="container">
                     <div class="row justify-content-center">
@@ -43,17 +43,17 @@ session_start();
                             <h3 class="pb-3">Proyecto Web</h3>
                             <a href="videojuegos.php" class="btn btn-danger btn-lg mr-2">Videojuegos</a>
                             <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['usuario'])) { ?>
-                            <a href="search-view.php" class="btn btn-primary btn-lg ml-2">Buscar</a>
+                                <a href="user-view.php" class="btn btn-primary btn-lg ml-2">Mi Perfil</a>
                             <?php } else { ?>
-                            <a href="register-view.php" class="btn btn-primary btn-lg ml-2">Registrarse</a>
-                            <?php }?>
+                                <a href="register-view.php" class="btn btn-primary btn-lg ml-2">Registrarse</a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="carousel-item">
-        <img src="img/img3.png" alt="" class="w-100">
+            <img src="img/img3.png" alt="" class="w-100">
             <div class="carousel-caption">
                 <div class="container">
                     <div class="row justify-content-center">
@@ -63,10 +63,10 @@ session_start();
                             <h3 class="pb-3">Proyecto Web</h3>
                             <a href="videojuegos.php" class="btn btn-danger btn-lg mr-2">Videojuegos</a>
                             <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['usuario'])) { ?>
-                            <a href="search-view.php" class="btn btn-primary btn-lg ml-2">Buscar</a>
+                                <a href="user-view.php" class="btn btn-primary btn-lg ml-2">Mi Perfil</a>
                             <?php } else { ?>
-                            <a href="register-view.php" class="btn btn-primary btn-lg ml-2">Registrarse</a>
-                            <?php }?>
+                                <a href="register-view.php" class="btn btn-primary btn-lg ml-2">Registrarse</a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

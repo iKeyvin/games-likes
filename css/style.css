@@ -316,6 +316,19 @@ ul.edit li {
     height: 115px !important;
 }
 
+#comentarioAjax:hover, 
+#comentarioAjax:focus {
+  outline: 0;
+}
+
+#acercade:hover {
+  color: #0de4b5!important;
+}
+
+.titlelogo {
+  color: #fd1187!important
+}
+
 /*============= MEDIA QUERIES =============*/
 
 /* Devices under 1199px (xl) */

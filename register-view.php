@@ -50,9 +50,9 @@
                             </div>
                             <div class="form-group">
                             <?php if (isset($_GET['email'])) {?>
-                                <input type="text" class="form-control" placeholder="Correo Electrónico *" name="email" value="<?php echo $_GET['email']; ?>" />
+                                <input type="email" class="form-control" placeholder="Correo Electrónico *" name="email" value="<?php echo $_GET['email']; ?>" />
                                 <?php } else {?>
-                                    <input type="text" class="form-control" placeholder="Correo Electrónico *" name="email" value="" />
+                                    <input type="email" class="form-control" placeholder="Correo Electrónico *" name="email" value="" />
                                 <?php }?>
                             </div>
                         </div>
