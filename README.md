@@ -1,6 +1,8 @@
 # games-likes
 Proyecto Web - Reseñas / Información sobre videojuegos.
 
+Web project with mysql, bootstrap, php and ajax functionality.
+
 Tools
 -MAMP
 -VSCODE
