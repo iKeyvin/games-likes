@@ -46,7 +46,10 @@ if (isset($_POST['updateUser'])) {
     } else if (empty($telefono)) {
         header("Location: ../user-view.php?error=¡Introduce un número de teléfono!&$user_data");
         exit();
-    } else if (empty($fecha_nacimiento)) {
+    } else if ($fecha_nacimiento >= date('Y-m-d')) {
+        header("Location: ../user-view.php?error=¡Fecha de nacimiento incorrecta!&$user_data");
+        exit();
+    }else if (empty($fecha_nacimiento)) {
         header("Location: ../user-view.php?error=¡Introduce la fecha de nacimiento!&$user_data");
         exit();
     } else {
