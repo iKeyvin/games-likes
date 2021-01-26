@@ -26,7 +26,7 @@ if (
 
 
     $user_data = 'usuario=' . $usuario . '&nombre=' . $nombre . '&apellidos=' . $apellidos . '&email=' . $email . '&telefono=' . $telefono . '&fecha_nacimiento=' . $fecha_nacimiento;
-
+    
 
     if (empty($usuario)) {
         header("Location: ../register-view.php?error=¡Introduce un usuario!&$user_data");
@@ -36,9 +36,6 @@ if (
         exit();
     } else if (empty($apellidos)) {
         header("Location: ../register-view.php?error=¡Introduce los apellidos!&$user_data");
-        exit();
-    } else if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header("Location: ../register-view.php?error=¡Introduce un correo eletrónico valido!&$user_data");
         exit();
     }else if (empty($email)) {
         header("Location: ../register-view.php?error=¡Introduce un correo eletrónico!&$user_data");
